@@ -30,6 +30,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="34">
         <activity
+            android:name=".detail_activity.URLQrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".detail_activity.LocationQrFullActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserListActivity"
             android:exported="false" />
         <activity
