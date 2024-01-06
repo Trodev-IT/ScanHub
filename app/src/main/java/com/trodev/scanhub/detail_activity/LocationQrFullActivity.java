@@ -57,7 +57,7 @@ public class LocationQrFullActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_qr_full);
 
         /*init*/
-        from_tv = findViewById(R.id.fromTv);
+        from_tv = findViewById(R.id.from_tv);
         to_tv = findViewById(R.id.recevier_tv);
         text_tv = findViewById(R.id.text_tv);
 

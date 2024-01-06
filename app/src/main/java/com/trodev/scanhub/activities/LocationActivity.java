@@ -29,7 +29,7 @@ public class LocationActivity extends AppCompatActivity {
     public final static int QRCodeWidth = 500;
     Bitmap bitmap;
     private Button make_btn, download_btn, save_btn;
-    private EditText addressET, fromET, toET;
+    private EditText myLoc, desLoc, addressET;
     private ImageView imageView;
     String loc_from, loc_to, loc_sms, date, time;
     DatabaseReference reference;
@@ -47,8 +47,8 @@ public class LocationActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("QR_DB").child("location_qr");
 
 
-        fromET = findViewById(R.id.fromET);
-        toET = findViewById(R.id.toET);
+        myLoc = findViewById(R.id.myLoc);
+        desLoc = findViewById(R.id.desLoc);
         addressET = findViewById(R.id.addressET);
 
         download_btn = findViewById(R.id.downloadBtn);
@@ -62,11 +62,12 @@ public class LocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (fromET.getText().toString().length() + toET.getText().toString().length() + addressET.getText().toString().length() == 0) {
+                if (myLoc.getText().toString().length() + desLoc.getText().toString().length() + addressET.getText().toString().length() == 0) {
+
                     Toast.makeText(LocationActivity.this, "Make sure your given Text..!", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        bitmap = textToImageEncode("Your Location :  " + fromET.getText().toString().trim() + "\nDestination :  " + toET.getText().toString().trim() + "\nAddress:  " + addressET.getText().toString().trim());   // + "\n\n\nMake by Altai Platforms"
+                        bitmap = textToImageEncode("Your Location :  " + myLoc.getText().toString().trim() + "\nDestination :  " + desLoc.getText().toString().trim() + "\nAddress:  " + addressET.getText().toString().trim());   // + "\n\n\nMake by Altai Platforms"
                         imageView.setImageBitmap(bitmap);
                         download_btn.setVisibility(View.VISIBLE);
                         save_btn.setVisibility(View.VISIBLE);
@@ -100,15 +101,15 @@ public class LocationActivity extends AppCompatActivity {
     private void save_to_db() {
 
         /*get text from edit text*/
-        loc_from = fromET.getText().toString().trim();
-        loc_to = toET.getText().toString().trim();
+        loc_from = myLoc.getText().toString().trim();
+        loc_to = desLoc.getText().toString().trim();
         loc_sms = addressET.getText().toString().trim();
 
         /*making condition*/
         if (loc_from.isEmpty()) {
-            fromET.setError("Please fill your location");
+            myLoc.setError("Please fill your location");
         } else if (loc_to.isEmpty()) {
-            toET.setError("please fill destination");
+            desLoc.setError("please fill destination");
         } else if (loc_sms.isEmpty()) {
             addressET.setError("please fill sms");
         } else {
